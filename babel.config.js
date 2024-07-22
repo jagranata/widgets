@@ -9,11 +9,11 @@ module.exports = {
     [
       '@babel/preset-react',
       {
-        development: isDevelopment,
+        development: false,
         // Ship with 'classic' runtime for compatibility with React >=17, otherwise ESM module resolution differs
         // between versions (see https://github.com/facebook/react/issues/20235); develop with 'automatic' runtime for
         // ease of development, so that React does not need to be top-level imported everywhere.
-        runtime: isDevelopment ? 'automatic' : 'classic',
+        runtime: 'automatic',
       },
     ],
     ['@babel/preset-typescript', { isTSX: true, allExtensions: true }],
