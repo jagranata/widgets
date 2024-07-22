@@ -59,11 +59,16 @@ function getRouter(chainId: ChainId, provider: BaseProvider): AlphaRouter {
         minTimeout: 100,
         maxTimeout: 1000,
       },
-      (optimisticCachedRoutes: boolean, useMixedRouteQuoter: boolean) => ({
+      // (optimisticCachedRoutes: boolean, useMixedRouteQuoter: boolean) => ({
+      //   multicallChunk: 10,
+      //   gasLimitPerCall: 5_000_000,
+      //   quoteMinSuccessRate: 0.1,
+      // }),
+      {
         multicallChunk: 10,
         gasLimitPerCall: 5_000_000,
         quoteMinSuccessRate: 0.1,
-      }),
+      },
       {
         gasLimitOverride: 5_000_000,
         multicallChunk: 5,
