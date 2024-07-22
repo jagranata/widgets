@@ -1,4 +1,4 @@
-import { formatCurrencyAmount, formatPrice, NumberType } from '@uniswap/conedison/format'
+import { formatCurrencyAmount, formatNumber, NumberType } from '@uniswap/conedison/format'
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core'
 import Row from 'components/Row'
 import { useCallback, useMemo, useState } from 'react'
@@ -6,6 +6,14 @@ import { InterfaceTrade } from 'state/routing/types'
 import { ThemedText } from 'theme'
 
 import { TextButton } from '../Button'
+
+function formatPrice(price: string, type: NumberType = NumberType.FiatTokenPrice): string {
+  if (price === null || price === undefined) {
+    return '-'
+  }
+
+  return formatNumber(parseFloat(price), type)
+}
 
 export function useTradeExchangeRate(
   trade: InterfaceTrade,
@@ -32,7 +40,8 @@ export function useTradeExchangeRate(
 
   return useMemo(
     () => [
-      `${1} ${price.baseCurrency.symbol} = ${formatPrice(price, NumberType.TokenTx)} ${price.quoteCurrency.symbol}`,
+      `${1} ${price.baseCurrency.symbol} = ${formatPrice(price.toSignificant(), NumberType.TokenTx)} 
+      ${price.quoteCurrency.symbol}`,
       usdcPrice && formatCurrencyAmount(usdcPrice, NumberType.FiatTokenPrice),
     ],
     [price, usdcPrice]
